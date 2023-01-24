@@ -4,6 +4,13 @@ const { ConfigCredentials, Credentials } = require('./lib/credentials');
 const fpeEncryptDecrypt = require('./lib/fpeEncryptDecrypt');
 
 module.exports = {
+
+  /**
+   * encrypt function
+   * @param {*} params 
+   * @param {*} data 
+   * @returns 
+   */
   async encrypt(params, data) {
     const enc = await new Encryption(params, 1);
     const result = Buffer.concat([enc.begin(), enc.update(data), enc.end()]);
@@ -11,6 +18,12 @@ module.exports = {
     return result;
   },
 
+  /**
+   * decrypt function
+   * @param {*} params 
+   * @param {*} data 
+   * @returns 
+   */
   async decrypt(params, data) {
     const dec = new Decryption(params);
     const beginResult = dec.begin();
@@ -20,6 +33,7 @@ module.exports = {
     dec.close();
     return result;
   },
+
   Encryption,
   Decryption,
   ConfigCredentials,
